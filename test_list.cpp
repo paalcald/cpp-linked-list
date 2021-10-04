@@ -2,7 +2,7 @@
 #include "int_linked_list.hpp"
 using namespace pab;
 int main () {
-  List l1{nullptr};
+  List<int> l1{nullptr};
   l1.append(3);
   l1.push(1);
   l1.push(2);
