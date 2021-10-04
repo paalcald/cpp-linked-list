@@ -1,72 +1,76 @@
 #include <iostream>
 #include "int_linked_list.hpp"
 
-void show(List l) {
-  while (l != NULL) {
-    std::cout << l->data << " ";
-    l = l->next;
+void pab::List::show() const {
+  Node* current = head;
+  while (current != NULL) {
+    std::cout << current->data << " ";
+    current = current->next;
   }
 }
 
-void push(int e, List& l) {
-  Node* new_node = new Node;
+pab::List& pab::List::push(int e) {
+  pab::Node* new_node = new pab::Node;
   new_node->data = e;
-  new_node->next = l;
-  l = new_node;
+  new_node->next = head;
+  head = new_node;
+  return *this;
 }
 
-void append(int e, List& l) {
-  Node* new_node = new Node;
+pab::List& pab::List::append(int e) {
+  pab::Node* new_node = new pab::Node;
   new_node->data = e;
   new_node->next = nullptr;
-  Node* current = l;
+  Node* current = head;
   if (current == nullptr)
-    l = new_node;
+    head = new_node;
   else {
     while (current->next != nullptr)
       current = current->next;
     current->next = new_node;
   }
+  return *this;
 }
 
-void free(List& l) {
-  Node* next = l;
+void pab::List::free() {
+  Node* next = head;
   if (next == nullptr)
     return;
   else {
     while(next->next != nullptr) {
      next = next->next;
-      delete l;
-      l = next; 
+      delete head;
+      head = next; 
     }
-    delete l;
-    l = nullptr;
+    delete head;
+    head = nullptr;
     return;
   }
 }
 
-void pop(List& l) {
-  if (l == nullptr)
-    return;
+pab::List& pab::List::pop() {
+  if (head == nullptr)
+    return *this;
   else {
-    Node * next = l->next;
-    delete l;
-    l = next;
+    Node * next = head->next;
+    delete head;
+    head = next;
+    return *this;
   }
 }
 
-void pop_back(List& l) {
-  if (l == nullptr)
-    return;
+pab::List& pab::List::pop_back() {
+  if (head == nullptr)
+    return *this;
   else {
-    Node* current = l;
-    Node* last = l;
+    Node* current = head;
+    Node* last = head;
     while(current->next != nullptr) {
       last = current;
       current = current->next;
     }
     delete current;
     last->next = nullptr;
-    return;
+    return *this;
   }
 }

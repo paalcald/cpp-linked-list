@@ -1,17 +1,17 @@
 #include <iostream>
 #include "int_linked_list.hpp"
-
+using namespace pab;
 int main () {
-  Node* l1 = nullptr;
-  append(3, l1);
-  push(1, l1);
-  push(2, l1);
-  append(0, l1);
-  show(l1);
+  List l1{nullptr};
+  l1.append(3);
+  l1.push(1);
+  l1.push(2);
+  l1.append(0);
+  l1.show();
   printf("\n");
-  pop_back(l1);
-  show(l1);
+  l1.pop();
+  l1.show();
   printf("\n");
-  free(l1);
-  printf("%i", l1 == nullptr);
+  l1.free();
+  printf("%i", l1.head == nullptr);
 }

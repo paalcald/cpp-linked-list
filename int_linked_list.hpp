@@ -1,23 +1,27 @@
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
+namespace pab {
+  typedef struct Node {
+    int data;
+    Node* next;
+  } Node;
+  
+  typedef struct List {
+    Node* head;
+    
+    void show() const;
+    
+    List& push(int e);
+    
+    List& append(int e);
 
-typedef struct Nodo {
-  int data;
-  struct Nodo* next;
-} Node;
-
-typedef struct Nodo* List;
-
-void show(List l);
-
-void push(int e, List& l);
-
-void append(int e, List& l);
-
-void free(List& l);
-
-void pop(List& l);
-
-void pop_back(List& l);
+    void free();
+    
+    List& pop();
+    
+    List& pop_back();
+    
+  } List;
+}
 
 #endif //LINKED_LIST_H
