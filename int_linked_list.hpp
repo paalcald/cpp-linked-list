@@ -59,8 +59,64 @@ namespace pab
     std::ostream &operator<< (std::ostream &output, const List<T> &l);
 	
 
-    template <typename T>
+     template <typename T>
     void truncate(Node<T>*& node);
+}
+
+template <typename T>
+pab::List<T> pab::List<T>::merge(const List<T> &m) {
+     List<T> out;
+     Node<T>* l1 = head;
+     Node<T>* l2 = m.head;
+     if (l1 != nullptr || l1 != nullptr) {
+	  out.head = new Node<T>;
+     }
+     Node<T>* l = out.head;
+     while (l1 != nullptr && l2 != nullptr) {
+	  if (l1->data < l2->data) {
+	       l->data = l1->data;
+	       l1 = l1->next;
+	       (l1 != nullptr || l2 != nullptr) ?
+		    l->next = new Node<T>:
+		    l->next = nullptr;
+	       l = l->next;
+	  } else if (l1 -> data > l2-> data) {
+	       l->data = l2->data;
+	       l2 = l2->next;
+	       (l1 != nullptr || l2 != nullptr) ?
+		    l->next = new Node<T>:
+		    l->next = nullptr;
+	       l = l->next;
+	  } else {
+	       l->data = l1->data;
+	       l->next = new Node<T>;
+	       l = l->next;
+	       l->data = l2->data;
+	       l1 = l1->next;
+	       l2 = l2->next;
+	       (l1 != nullptr || l2 != nullptr) ?
+		    l->next = new Node<T>:
+		    l->next = nullptr;
+	       l = l->next;
+	  }
+     }
+     while (l1 != nullptr) {
+	  l->data = l1->data;
+	  l1 = l1->next;
+	  (l1 != nullptr) ?
+	       l->next = new Node <T>:
+	       l->next = nullptr;
+	  l = l->next;
+     }
+     while (l2 != nullptr) {
+	  l->data = l2->data;
+	  l2 = l2->next;
+	  (l2 != nullptr) ?
+	       l->next = new Node <T>:
+	       l->next = nullptr;
+	  l = l->next;
+     }
+     return out;
 }
 
 template <typename T>
