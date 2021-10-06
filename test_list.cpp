@@ -12,8 +12,14 @@ int main () {
   l2.push_front(7);
   l2.push_front(4);
   l2.push_front(2);
-  List<int> l3 = l1.merge(l2);
+  List<int> l3;
+  l3.push_front(5);
+  l3.push_front(7);
+  l3.push_front(0);
+  l3.push_front(4);
+  l3.push_front(6);
   std::cout << l1 << "\n";
   std::cout << l2 << "\n";
   std::cout << l3 << "\n";
+  std::cout << l3.mergesort() << "\n";
 }

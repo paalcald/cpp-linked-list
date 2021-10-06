@@ -43,16 +43,18 @@ namespace pab
 	    }
 	}
 
-		void push_front(const T& e);
-	void push_back(const T& e);
-	void insert(int i, const T &m); //todo
-	List<T> slice(int first, int last) const; //todo
-	List<T> merge(const List<T> &m1);
-	T& operator[](int i) const;
-	int len(void) const;
+	 void push_front(const T& e);
+	 void push_back(const T& e);
+	 void insert(int i, const T &m); //todo
+	 List<T> slice(int first, int last) const; //todo
+	 List<T> merge(const List<T> &m1) const;
+	 List<T> mergesort() const;
+	 
+	 T& operator[](int i) const;
+	 int len(void) const;
 	
-	void pop_front();
-	void pop_back();
+	 void pop_front();
+	 void pop_back();
 	
     };
     template <typename T>
@@ -64,7 +66,41 @@ namespace pab
 }
 
 template <typename T>
-pab::List<T> pab::List<T>::merge(const List<T> &m) {
+pab::List<T> pab::List<T>::slice(int first, int last) const 
+{
+     if (last < first)
+	  throw std::out_of_range("Invalid slice range1.");
+     else if (first < 0)
+	  throw std::out_of_range("Invalid slice range2.");
+     Node<T>* l = head;
+     for (int i = 0; i < first; i++){
+	  if (l == nullptr)
+	       throw std::out_of_range("Invalid slice range3.");
+	  l = l->next;
+     }
+     List<T> out;
+     if (last == first)
+	  return out;
+     out.head = new Node<T>;
+     Node<T>* p = out.head;
+     for (int i = first; i < last - 1; i++) {
+	  if (l == nullptr)
+	       throw std::out_of_range("Invalid slice range4.");
+	  p->data = l->data;
+	  p->next = new Node<T>;
+	  p = p->next;
+	  l = l->next;
+     }
+     if (l == nullptr)
+	  throw std::out_of_range("Invalid slice range5.");
+     p->data = l->data;
+     p->next = nullptr;
+     return out;
+}
+
+
+template <typename T>
+pab::List<T> pab::List<T>::merge(const List<T> &m) const {
      List<T> out;
      Node<T>* l1 = head;
      Node<T>* l2 = m.head;
@@ -117,6 +153,24 @@ pab::List<T> pab::List<T>::merge(const List<T> &m) {
 	  l = l->next;
      }
      return out;
+}
+
+template <typename T>
+pab::List<T> pab::List<T>::mergesort() const
+{
+     Node<T>* l = head;
+     if (l->next == nullptr) {
+	  List<T> sorted;
+	  sorted.push_front(l->data);
+	  return sorted;
+     } else {
+	  List<T> p1 = slice(0, len() / 2);
+	  List<T> p2 = slice(len() / 2, len());
+	  List<T> psort1 = p1.mergesort();
+	  List<T> psort2 = p2.mergesort();
+	  List<T> ps12 = psort1.merge(psort2);
+	  return ps12;
+     }
 }
 
 template <typename T>
@@ -182,6 +236,10 @@ pab::List<T>::List() {
 
 template <typename T>
 pab::List<T>::List(const pab::List<T> &l_i) {
+     if (l_i.head == nullptr){
+	  head = nullptr;
+	  return;
+     }
      Node<T>* n_f = new Node<T>;
      head = n_f;
      for (Node<T>* n_i = l_i.head; n_i != nullptr; n_i = n_i->next) {
