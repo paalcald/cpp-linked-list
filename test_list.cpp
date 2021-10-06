@@ -2,16 +2,16 @@
 #include "int_linked_list.hpp"
 using namespace pab;
 int main () {
-  List<int> l1{nullptr};
-  l1.append(3);
-  l1.push(1);
-  l1.push(2);
-  l1.append(0);
-  l1.show();
-  printf("\n");
-  l1.pop();
-  l1.show();
-  printf("\n");
-  l1.free();
-  printf("%i", l1.head == nullptr);
+  List<int> l1;
+  l1.push_back(3);
+  l1.push_front(1);
+  l1.push_front(2);
+  l1.push_back(0);
+  std::cout << l1 << "\n";
+  std::cout << l1.len() << " " << l1[3] << "\n";
+  List<int> l2 = l1;
+  l1.pop_front();
+  std::cout << l1 << "\n";
+  std::cout << l2 << "\n";
+  l1 = l2;
 }
